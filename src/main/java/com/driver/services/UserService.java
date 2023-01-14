@@ -25,7 +25,6 @@ public class UserService {
     }
 
     public void updateUser(User user){
-
         userRepository3.save(user);
     }
 
