@@ -1,15 +1,11 @@
 package com.driver.models;
 
-import org.hibernate.annotations.CreationTimestamp;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "blog")
 public class Blog {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -18,20 +14,7 @@ public class Blog {
 
     private String content;
 
-
-    private Date pubDate;
-
-    public Blog(){
-
-    }
-
-    public Blog(int id ,String title,String content, Date date,List<Image> imageList){
-        this.id = id;
-        this.imageList = imageList;
-        this.title = title;
-        this.content = content;
-        this.pubDate = date;
-    }
+    private Date pubdate;
 
     public int getId() {
         return id;
@@ -58,21 +41,8 @@ public class Blog {
     }
 
     public Date getPubDate() {
-        return pubDate;
+        return pubdate;
     }
-
-    public void setPubDate(Date pubDate) {
-        this.pubDate = pubDate;
-    }
-
-    //    as blog and user have parent child relation M to One
-    @ManyToOne
-    @JoinColumn
-    private User user;
-
-    // blog is parent of image with one to many relation
-    @OneToMany(mappedBy = "blog",cascade = CascadeType.ALL)
-    private List<Image> imageList;
 
     public List<Image> getImageList() {
         return imageList;
@@ -82,6 +52,20 @@ public class Blog {
         this.imageList = imageList;
     }
 
+    public void setPubDate(Date pubdate
+    ) {
+        this.pubdate = pubdate;
+    }
+
+    public Blog() {
+    }
+
+    public Blog( String title, String content, Date pubdate) {
+        this.title = title;
+        this.content = content;
+        this.pubdate = pubdate;
+    }
+
     public User getUser() {
         return user;
     }
@@ -89,4 +73,11 @@ public class Blog {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @ManyToOne
+    @JoinColumn
+    private User user;
+
+    @OneToMany(mappedBy = "blog",cascade = CascadeType.ALL)
+    private List<Image> imageList;
 }

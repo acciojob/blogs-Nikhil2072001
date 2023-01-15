@@ -3,9 +3,7 @@ package com.driver.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name ="image")
 public class Image {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -14,13 +12,12 @@ public class Image {
 
     private String dimensions;
 
-    public Image() {
+    public int getId() {
+        return id;
     }
 
-    public Image(String description,String dimensions) {
-        this.description = description;
-        this.dimensions = dimensions;
-
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDescription() {
@@ -39,14 +36,8 @@ public class Image {
         this.dimensions = dimensions;
     }
 
-    public int getId() {
-        return id;
+    public Image() {
     }
-
-    // image is child of blog with many to one relation
-    @ManyToOne
-    @JoinColumn
-    private Blog blog;
 
     public Blog getBlog() {
         return blog;
@@ -56,7 +47,11 @@ public class Image {
         this.blog = blog;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public Image(String description, String dimensions) {
+        this.description = description;
+        this.dimensions = dimensions;
     }
+    @ManyToOne
+    @JoinColumn
+    private Blog blog;
 }
